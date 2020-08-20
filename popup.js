@@ -5,7 +5,7 @@ var qrcode = new QRCode(document.getElementById("qrcode"), {
 
 function makeCode() {
     var elText = document.getElementById("text");
-
+    qrcode.makeCode("Paste Something!")
     elText.addEventListener('input', function(evt) {
         if (elText.value != null || elText.value != "") {
             if (elText.value.length <= 500)
@@ -15,13 +15,8 @@ function makeCode() {
 
     })
 
-    // if (!elText.value) {
-    //     elText.focus();
-    //     return;
-    // }
 
 }
-
 makeCode();
 
 $("#text").
