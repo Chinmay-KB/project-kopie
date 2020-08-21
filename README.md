@@ -1,5 +1,5 @@
 # project-kopie
-A simple browser extension to copy text from PC to phone over QR
+A simple browser extension to copy text from PC to phone over QR. You can download it for Microsoft Edge(Chromium) [here](https://microsoftedge.microsoft.com/addons/detail/kopie/llmgkefkiomomhcbnakdhpcaoadebhpl)
 
 ![Use case 1](https://raw.githubusercontent.com/Chinmay-KB/project-kopie/master/screenshots/kopie1.jpg)
 
