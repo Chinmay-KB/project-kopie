@@ -1,3 +1,5 @@
+[![Starware](https://img.shields.io/badge/Starware-⭐-black?labelColor=f9b00d)](https://github.com/zepfietje/starware)
+
 # project-kopie
 A simple browser extension to copy text from PC to phone over QR. You can download it for Microsoft Edge(Chromium) [here](https://microsoftedge.microsoft.com/addons/detail/kopie/llmgkefkiomomhcbnakdhpcaoadebhpl)
 
@@ -16,3 +18,7 @@ I will try to publish this extension in the Chrome web store and Firefox Browser
 * Enable developer mode by going to chrome://extensions/ or its equivalent in other Chromium based browser.
 * Select "Load Unpacked" and navigate to the extension folder of the cloned copy of this repository
 * The icon should beside the address bar.
+
+<!-- TODO: project name --> is Starware.  
+This means you're free to use the project, as long as you star its GitHub repository.  
+Your appreciation makes us grow and glow up. ⭐
