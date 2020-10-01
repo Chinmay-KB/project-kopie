@@ -15,6 +15,11 @@ function makeCode() {
 
     })
 
+    navigator.clipboard.readText().then(text => {
+        if (text != null && text.trim() !== '') {
+            elText.value = text;
+        }
+    });
 
 }
 makeCode();
