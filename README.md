@@ -8,11 +8,11 @@ A simple browser extension to copy text from PC to phone over QR. You can downlo
 ![Use case 1](https://raw.githubusercontent.com/Chinmay-KB/project-kopie/master/screenshots/kopie1.jpg)
 
 ## What is Kopie?
-Think of all those times when you needed to copy a lengthy URL, or a few lines of text, or some activation code to your phone. What are your ways? Mail yourself the text? Open Whatsapp web or any other messaging service and send youself the code? Now you have Kopie!
-Kopie sits cosily in your browser extension list, ready to convert any text you have copied into a QR code. Just point your phone camera at it and you have that little piece of text on your phone!
+Think of all those times when you needed to copy a lengthy URL, or a few lines of text, or a activation code to your phone. What ways you use? Do you still <br><b> Mail yourself the text?</b><br><b>Open Whatsapp web or any other messaging service and send youself the code?</b><br> Now you can be hassle free and let Kopie do its work!
+Kopie sits cosily on your browser extension list, ready to convert any text you have copied into a QR code. Just focus your phone camera at the QR code and you have that little piece of text on your phone!
 
 ### Limitations
-I went on a hit and trial spree to find out what's the maximum length of text it can convert to QR code. Found out that it actually can handle everything thrown at it, but the bottleneck is the phone camera, which can not process a very dense QR. Hence I have manually throttled the character length at 500 characters for now. Also this has not yet been tested in firefox, any contribution towards that is welcome !
+I went on a hit and trial spree to find out what's the maximum length of text it can convert to QR code. Found out that it can actually handle everything thrown at it, but the bottleneck is the phone camera, which can not process a very dense QR. So, I have manually throttled the character length at 500 characters for now. Also Kopie is not yet  tested on firefox web browser, any contribution towards that is welcome !
 
 ### Installation
 I will try to publish this extension in the Chrome web store and Firefox Browser add-ons, until then you can side load it on your browser.
