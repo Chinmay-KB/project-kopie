@@ -35,10 +35,9 @@ function makeCode() {
                     height: newSize
                 })
                 qrcode.makeCode(elText.value);
-                $('#qrcode').css({width: newSize + 'px', height: newSize + 'px'})
             }
             else qrcode.makeCode("Text is too long")
-        } else qrcode.makeCode("Text is to short");
+        } else qrcode.makeCode("Text is too short");
 
     })
 
