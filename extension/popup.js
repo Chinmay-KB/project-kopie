@@ -25,7 +25,7 @@ function fitSize(textLength) {
 function makeCode() {
     var elText = document.getElementById("text");
     qrcode.makeCode("Paste Something!")
-    elText.addEventListener('input', function(evt) {
+    elText.addEventListener("input", function(evt) {
         if (elText.value != null || elText.value != "") {
             if (elText.value.length <= maxLength) {
                 var newSize = fitSize(elText.value.length);
@@ -33,16 +33,16 @@ function makeCode() {
                 qrcode = new QRCode(document.getElementById("qrcode"), {
                     width: newSize,
                     height: newSize
-                })
+                });
                 qrcode.makeCode(elText.value);
             }
-            else qrcode.makeCode("Text is too long")
+            else qrcode.makeCode("Text is too long");
         } else qrcode.makeCode("Text is too short");
 
     })
 
     navigator.clipboard.readText().then(text => {
-        if (text != null && text.trim() !== '') {
+        if (text != null && text.trim() !== "") {
             elText.value = text;
         }
     });
