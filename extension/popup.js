@@ -1,10 +1,11 @@
 var minSize = 200;
-var maxSize = 600 - 70; // Chrome does not let the popup grow beyond 600px, also removing a bit because of input and bottom text
+var maxSize = 530; // the popup cannot be taller than 600px
 var maxBytes = 1270; // the most the qrcode generator can fit, measured in UTF-8 bytes
 
 var elText = document.getElementById("text");
 var elQr = document.getElementById("qrcode");
 var elMessage = document.getElementById("message");
+var elCount = document.getElementById("count");
 
 function byteLength(text) {
     return new TextEncoder().encode(text).length;
@@ -17,7 +18,7 @@ function fitSize(bytes) {
 function showMessage(message) {
     elQr.style.display = "none";
     elMessage.textContent = message;
-    elMessage.style.display = "block";
+    elMessage.style.display = "flex";
 }
 
 function draw(text, size) {
@@ -40,7 +41,7 @@ function showQr(text, size) {
     // whole number of pixels per module, otherwise big codes come out blurry
     // and do not scan.
     var modules = draw(text, size)._oQRCode.getModuleCount();
-    var snapped = modules * Math.max(1, Math.round(size / modules));
+    var snapped = modules * Math.max(3, Math.round(size / modules));
     if (snapped !== size) {
         draw(text, snapped);
     }
@@ -48,12 +49,15 @@ function showQr(text, size) {
 
 function render() {
     var text = elText.value;
+    var bytes = byteLength(text);
+    elCount.textContent = bytes + " / " + maxBytes;
+    elCount.className = bytes > maxBytes ? "over" : "";
+
     if (text === "") {
         showMessage("Paste or type some text to get a QR code.");
         return;
     }
 
-    var bytes = byteLength(text);
     if (bytes > maxBytes) {
         showMessage("Too long for a QR code. This is " + bytes + " bytes, the limit is " + maxBytes + ".");
         return;

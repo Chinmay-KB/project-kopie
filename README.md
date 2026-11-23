@@ -18,6 +18,10 @@ Think of all the times you needed a long URL, a few lines of text or an activati
 2. Paste or type your text.
 3. Scan the QR code with your phone camera.
 
+<p align="center">
+  <img src="screenshots/popup.png" alt="The Kopie popup with a link and its QR code" width="450">
+</p>
+
 That is all. There is no account, no app on the phone and no server in between. The text never leaves your browser.
 
 ## Good to know
