@@ -29,7 +29,7 @@ That is all. There is no account, no app on the phone and no server in between. 
 - **No permissions.** The extension does not ask for access to your tabs or the pages you visit.
 - **Works offline.** The QR code is generated locally.
 - **Any language.** Non-English text and emoji come through as they are.
-- **Size limit.** A QR code can only hold so much before a phone camera stops reading it. Kopie takes up to 1270 bytes, which is about 1270 characters of English text and fewer for other scripts. The code grows with the text to stay readable.
+- **Size limit.** A QR code can only hold so much before a phone camera stops reading it. Kopie takes up to 2328 bytes, which is about 2300 characters of English text and fewer for other scripts. The code grows with the text to stay readable.
 
 ## Install
 
