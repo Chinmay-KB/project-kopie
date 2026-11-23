@@ -1,0 +1,40 @@
+name: Version bump
+
+# A PR that changes anything under extension/ has to raise "version" in
+# extension/manifest.json. PRs that don't touch the extension pass as is.
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  version-bump:
+    runs-on: ubuntu-latest
+    steps:
+      # The default checkout is the merge of the PR into master,
+      # so HEAD^1 is master and HEAD is master + this PR.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Check manifest version
+        run: |
+          if ! git diff --name-only HEAD^1 HEAD | grep -q '^extension/'; then
+            echo "No changes under extension/, no version bump needed."
+            exit 0
+          fi
+
+          old=$(git show HEAD^1:extension/manifest.json | jq -r .version)
+          new=$(jq -r .version extension/manifest.json)
+
+          if [ "$old" = "$new" ]; then
+            echo "::error file=extension/manifest.json::extension/ changed but version is still $old. Bump it."
+            exit 1
+          fi
+
+          highest=$(printf '%s\n%s\n' "$old" "$new" | sort -V | tail -n 1)
+          if [ "$highest" != "$new" ]; then
+            echo "::error file=extension/manifest.json::Version went from $old to $new. It has to go up."
+            exit 1
+          fi
+
+          echo "Version bumped: $old -> $new"
