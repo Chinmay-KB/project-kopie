@@ -23,7 +23,7 @@ function showMessage(message) {
 }
 
 function draw(text, size) {
-    elQr.innerHTML = "";
+    elQr.replaceChildren();
     elQr.removeAttribute("title");
     elQr.style.width = size + "px";
     elQr.style.height = size + "px";
