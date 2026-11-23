@@ -1,6 +1,6 @@
 var minSize = 200;
 var maxSize = 530; // the popup cannot be taller than 600px
-var maxBytes = 1270; // the most the qrcode generator can fit, measured in UTF-8 bytes
+var maxBytes = 2328; // the most the generator fits at correction level M, in UTF-8 bytes
 
 var elText = document.getElementById("text");
 var elQr = document.getElementById("qrcode");
@@ -29,7 +29,8 @@ function draw(text, size) {
     return new QRCode(elQr, {
         text: text,
         width: size,
-        height: size
+        height: size,
+        correctLevel: QRCode.CorrectLevel.M
     });
 }
 
