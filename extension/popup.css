@@ -58,6 +58,20 @@ body {
     outline-offset: -1px;
 }
 
+#page {
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--accent);
+    font: inherit;
+    cursor: pointer;
+}
+
+#page:hover {
+    background: var(--field);
+}
+
 .footer {
     display: flex;
     justify-content: space-between;
