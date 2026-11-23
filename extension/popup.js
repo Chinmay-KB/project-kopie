@@ -1,61 +1,80 @@
 var minSize = 200;
-var maxSize = 600 - 70; // Crome appears to not want to let the popup grow beyond 600px, also removing a bit because of input and bottom text
-var minLength = 0;
-var maxLength = 1270; // qrcode generator appears to crash when using strings longer than 1270
+var maxSize = 600 - 70; // Chrome does not let the popup grow beyond 600px, also removing a bit because of input and bottom text
+var maxBytes = 1270; // the most the qrcode generator can fit, measured in UTF-8 bytes
 
-var qrContainer = $("#qrcodeContainer");
-qrContainer.html(generateQrDiv(minSize));
+var elText = document.getElementById("text");
+var elQr = document.getElementById("qrcode");
+var elMessage = document.getElementById("message");
 
-function generateQrDiv(size) {
-    return '<div id="qrcode" style="width:' + size + 'px; height:' + size + 'px; margin-top:15px;"></div>';
+function byteLength(text) {
+    return new TextEncoder().encode(text).length;
 }
 
-var qrcode = new QRCode(document.getElementById("qrcode"), {
-    width: minSize,
-    height: minSize
-});
-
-function fitSize(textLength) {
-    return Math.round(
-        ((maxSize - minSize) * (textLength - minLength)) / (maxLength - minLength) +
-        minSize
-    );
+function fitSize(bytes) {
+    return Math.round(((maxSize - minSize) * bytes) / maxBytes + minSize);
 }
 
-function makeCode() {
-    var elText = document.getElementById("text");
-    qrcode.makeCode("Paste Something!")
-    elText.addEventListener("input", function(evt) {
-        if (elText.value != null || elText.value != "") {
-            if (elText.value.length <= maxLength) {
-                var newSize = fitSize(elText.value.length);
-                qrContainer.html(generateQrDiv(newSize));
-                qrcode = new QRCode(document.getElementById("qrcode"), {
-                    width: newSize,
-                    height: newSize
-                });
-                qrcode.makeCode(elText.value);
-            }
-            else qrcode.makeCode("Text is too long");
-        } else qrcode.makeCode("Text is too short");
+function showMessage(message) {
+    elQr.style.display = "none";
+    elMessage.textContent = message;
+    elMessage.style.display = "block";
+}
 
-    })
-
-    navigator.clipboard.readText().then(text => {
-        if (text != null && text.trim() !== "") {
-            elText.value = text;
-        }
+function draw(text, size) {
+    elQr.innerHTML = "";
+    elQr.removeAttribute("title");
+    elQr.style.width = size + "px";
+    elQr.style.height = size + "px";
+    return new QRCode(elQr, {
+        text: text,
+        width: size,
+        height: size
     });
-
 }
-makeCode();
 
-$("#text").
-on("blur", function() {
-    makeCode();
-}).
-on("keydown", function(e) {
-    if (e.keyCode == 13) {
-        makeCode();
+function showQr(text, size) {
+    elMessage.style.display = "none";
+    elQr.style.display = "block";
+
+    // The number of modules is only known once the code is made. Redraw at a
+    // whole number of pixels per module, otherwise big codes come out blurry
+    // and do not scan.
+    var modules = draw(text, size)._oQRCode.getModuleCount();
+    var snapped = modules * Math.max(1, Math.round(size / modules));
+    if (snapped !== size) {
+        draw(text, snapped);
     }
+}
+
+function render() {
+    var text = elText.value;
+    if (text === "") {
+        showMessage("Paste or type some text to get a QR code.");
+        return;
+    }
+
+    var bytes = byteLength(text);
+    if (bytes > maxBytes) {
+        showMessage("Too long for a QR code. This is " + bytes + " bytes, the limit is " + maxBytes + ".");
+        return;
+    }
+
+    try {
+        showQr(text, fitSize(bytes));
+    } catch (e) {
+        showMessage("Could not make a QR code for this text.");
+    }
+}
+
+elText.addEventListener("input", render);
+render();
+
+// Start with whatever is on the clipboard, unless the user is already typing.
+navigator.clipboard.readText().then(function(text) {
+    if (elText.value === "" && text != null && text.trim() !== "") {
+        elText.value = text;
+        render();
+    }
+}).catch(function() {
+    // No clipboard access. The input is focused, so pasting by hand still works.
 });
