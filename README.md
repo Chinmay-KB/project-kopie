@@ -1,34 +1,56 @@
-[![Starware](https://img.shields.io/badge/Starware-⭐-black?labelColor=f9b00d)](https://github.com/zepfietje/starware)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-# project-kopie
-A simple browser extension to copy text from PC to phone over QR. You can download it for Microsoft Edge(Chromium) [here](https://microsoftedge.microsoft.com/addons/detail/kopie/llmgkefkiomomhcbnakdhpcaoadebhpl)
+<p align="center">
+  <img src="screenshots/banner.png" alt="Kopie: text from your PC to your phone, with a QR code" width="800">
+</p>
 
-![Use case 1](https://raw.githubusercontent.com/Chinmay-KB/project-kopie/master/screenshots/kopie1.jpg)
+<p align="center">
+  <a href="https://microsoftedge.microsoft.com/addons/detail/kopie/llmgkefkiomomhcbnakdhpcaoadebhpl"><b>Get Kopie for Microsoft Edge</b></a>
+</p>
 
-## What is Kopie?
-Think of all those times when you needed to copy a lengthy URL, or a few lines of text, or some activation code to your phone. What are your ways? Mail yourself the text? Open Whatsapp web or any other messaging service and send youself the code? Now you have Kopie!
-Kopie sits cosily in your browser extension list, ready to convert any text you have copied into a QR code. Just point your phone camera at it and you have that little piece of text on your phone!
+# Kopie
 
-### Limitations
-I went on a hit and trial spree to find out what's the maximum length of text it can convert to QR code. Found out that it actually can handle everything thrown at it, but the bottleneck is the phone camera, which can not process a very dense QR. Hence I have manually throttled the character length at 500 characters for now. Also this has not yet been tested in firefox, any contribution towards that is welcome !
+A small browser extension that turns text into a QR code, so you can get it from your computer to your phone by pointing the camera at the screen.
 
-### Installation
-I will try to publish this extension in the Chrome web store and Firefox Browser add-ons, until then you can side load it on your browser.
-* Clone this repository `https://github.com/Chinmay-KB/project-kopie.git`
-* Enable developer mode by going to chrome://extensions/ or its equivalent in other Chromium based browser.
-* Select "Load Unpacked" and navigate to the extension folder of the cloned copy of this repository
-* The icon should beside the address bar.
+Think of all the times you needed a long URL, a few lines of text or an activation code on your phone. Mailing it to yourself, or opening WhatsApp Web just to send yourself a message, works but is a chore. Kopie sits in your toolbar and does it in one click.
 
-### Starware
-project-kopie is Starware.  
-This means you're free to use the project, as long as you star its GitHub repository.  
-Your appreciation makes us grow and glow up. ⭐
+## How it works
 
-## Contributors ✨
+1. Click the Kopie icon.
+2. Paste or type your text.
+3. Scan the QR code with your phone camera.
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+That is all. There is no account, no app on the phone and no server in between. The text never leaves your browser.
+
+## Good to know
+
+- **No permissions.** The extension does not ask for access to your tabs or the pages you visit.
+- **Works offline.** The QR code is generated locally.
+- **Any language.** Non-English text and emoji come through as they are.
+- **Size limit.** A QR code can only hold so much before a phone camera stops reading it. Kopie takes up to 1270 bytes, which is about 1270 characters of English text and fewer for other scripts. The code grows with the text to stay readable.
+
+## Install
+
+**Microsoft Edge:** install it from the [Edge Add-ons store](https://microsoftedge.microsoft.com/addons/detail/kopie/llmgkefkiomomhcbnakdhpcaoadebhpl).
+
+**Chrome and other Chromium browsers:** not on the Chrome Web Store yet ([#28](https://github.com/Chinmay-KB/project-kopie/issues/28)), so for now you load it by hand:
+
+1. Clone this repository: `git clone https://github.com/Chinmay-KB/project-kopie.git`
+2. Open `chrome://extensions` and turn on Developer mode.
+3. Click "Load unpacked" and pick the `extension` folder.
+
+**Firefox:** not supported yet ([#27](https://github.com/Chinmay-KB/project-kopie/issues/27)).
+
+## Development
+
+There is no build step. The extension is plain HTML and JavaScript in the `extension` folder, so you can edit a file and reload the extension to see the change.
+
+A few things to know before sending a pull request:
+
+- Any change under `extension/` has to bump `version` in `extension/manifest.json`. A check on the PR enforces this.
+- Releases are cut by pushing a `v*` tag that matches the manifest version. That uploads the package to the Edge store.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the rest, and the [open issues](https://github.com/Chinmay-KB/project-kopie/issues) for things that need doing.
+
+## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -37,6 +59,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/Chinmay-KB"><img src="https://avatars0.githubusercontent.com/u/13520364?v=4" width="100px;" alt=""/><br /><sub><b>Chinmay Kabi</b></sub></a><br /><a href="https://github.com/Chinmay-KB/project-kopie/commits?author=Chinmay-KB" title="Code">💻</a></td>
     <td align="center"><a href="https://connorruggles.dev"><img src="https://avatars0.githubusercontent.com/u/14317362?v=4" width="100px;" alt=""/><br /><sub><b>Connor Ruggles</b></sub></a><br /><a href="https://github.com/Chinmay-KB/project-kopie/commits?author=rugglcon" title="Code">💻</a></td>
+    <td align="center"><a href="https://okram.civokram.com/"><img src="https://avatars0.githubusercontent.com/u/99233?v=4" width="100px;" alt=""/><br /><sub><b>Marko Marković</b></sub></a><br /><a href="https://github.com/Chinmay-KB/project-kopie/commits?author=markomarkovic" title="Code">💻</a></td>
   </tr>
 </table>
 
@@ -44,4 +67,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome.
+
+## License
+
+[MIT](LICENSE). Kopie is also [Starware](https://github.com/zepfietje/starware): if you use it and like it, a star on the repository is appreciated.
