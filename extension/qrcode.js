@@ -34,9 +34,11 @@ var QRCode;
 		// Added to support UTF-8 Characters
 		for (var i = 0, l = this.data.length; i < l; i++) {
 			var byteArray = [];
-			var code = this.data.charCodeAt(i);
+			var code = this.data.codePointAt(i);
 
-			if (code > 0x10000) {
+			if (code > 0xFFFF) {
+				// outside the BMP (emoji etc): one code point, two UTF-16 units
+				i++;
 				byteArray[0] = 0xF0 | ((code & 0x1C0000) >>> 18);
 				byteArray[1] = 0x80 | ((code & 0x3F000) >>> 12);
 				byteArray[2] = 0x80 | ((code & 0xFC0) >>> 6);
