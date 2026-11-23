@@ -18,6 +18,11 @@ Think of all the times you needed a long URL, a few lines of text or an activati
 2. Paste or type your text.
 3. Scan the QR code with your phone camera.
 
+Two shortcuts:
+
+- **This page:** the "Use this page's link" button puts the address of the current tab in the box.
+- **Right click:** select some text, or right click a link, and choose "Send to phone with Kopie".
+
 <p align="center">
   <img src="screenshots/popup.png" alt="The Kopie popup with a link and its QR code" width="450">
 </p>
@@ -26,7 +31,7 @@ That is all. There is no account, no app on the phone and no server in between. 
 
 ## Good to know
 
-- **No permissions.** The extension does not ask for access to your tabs or the pages you visit.
+- **No permission warning.** Kopie cannot read the pages you visit. It only sees the current tab's address, or the text you selected, at the moment you ask for it.
 - **Works offline.** The QR code is generated locally.
 - **Any language.** Non-English text and emoji come through as they are.
 - **Size limit.** A QR code can only hold so much before a phone camera stops reading it. Kopie takes up to 2328 bytes, which is about 2300 characters of English text and fewer for other scripts. The code grows with the text to stay readable.

@@ -6,6 +6,7 @@ var elText = document.getElementById("text");
 var elQr = document.getElementById("qrcode");
 var elMessage = document.getElementById("message");
 var elCount = document.getElementById("count");
+var elPage = document.getElementById("page");
 
 function byteLength(text) {
     return new TextEncoder().encode(text).length;
@@ -71,15 +72,47 @@ function render() {
     }
 }
 
+function setText(text) {
+    elText.value = text;
+    render();
+}
+
+function fromClipboard() {
+    navigator.clipboard.readText().then(function(text) {
+        if (elText.value === "" && text != null && text.trim() !== "") {
+            setText(text);
+        }
+    }).catch(function() {
+        // No clipboard access. The input is focused, so pasting by hand still works.
+    });
+}
+
 elText.addEventListener("input", render);
 render();
 
-// Start with whatever is on the clipboard, unless the user is already typing.
-navigator.clipboard.readText().then(function(text) {
-    if (elText.value === "" && text != null && text.trim() !== "") {
-        elText.value = text;
-        render();
-    }
-}).catch(function() {
-    // No clipboard access. The input is focused, so pasting by hand still works.
+if (location.search === "?window") {
+    // Opened as a window by the context menu, there is no page behind it.
+    elPage.style.display = "none";
+}
+
+elPage.addEventListener("click", function() {
+    chrome.tabs.query({ active: true, currentWindow: true }).then(function(tabs) {
+        if (tabs[0] && tabs[0].url) {
+            setText(tabs[0].url);
+        }
+    }).catch(function() {});
 });
+
+// Text sent from the right click menu wins, otherwise start with the clipboard.
+chrome.storage.session.get("pending").then(function(items) {
+    var pending = items.pending;
+    if (!pending) {
+        return fromClipboard();
+    }
+    chrome.storage.session.remove("pending");
+    if (Date.now() - pending.at < 10000) {
+        setText(pending.text);
+    } else {
+        fromClipboard();
+    }
+}).catch(fromClipboard);
