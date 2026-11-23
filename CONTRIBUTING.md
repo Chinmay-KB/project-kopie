@@ -1,75 +1,51 @@
-# Contribution
+# Contributing
 
-If you want to work on an existing issue, then do comment on the issue and I will assign the issue. If you seek to implement something that is not present in the issues, open a new issue and I will assign you to it.
+Thanks for taking the time. Kopie is a small project, so the process is light.
 
-### Installation
-You can download it for Microsoft Edge(Chromium) [here](https://microsoftedge.microsoft.com/addons/detail/kopie/llmgkefkiomomhcbnakdhpcaoadebhpl).For other browsers, you will have to sideload the extension.
-* Clone this repository `https://github.com/Chinmay-KB/project-kopie.git`
-* Enable developer mode by going to chrome://extensions/ or its equivalent in other Chromium based browser.
-* Select "Load Unpacked" and navigate to the extension folder of the cloned copy of this repository
-* The icon should beside the address bar.
+## Before you start
 
-### Git workflow
+- For a bug or a small fix, just open a pull request.
+- For anything bigger, open an issue first or comment on an existing one, so we can agree on the approach before you write the code.
+
+## Running it locally
+
+There is no build step.
+
+1. Fork and clone the repository.
+2. Open `edge://extensions` or `chrome://extensions` and turn on Developer mode.
+3. Click "Load unpacked" and pick the `extension` folder.
+4. After changing a file, hit the reload button on the extension card and reopen the popup.
+
+The code is plain HTML, CSS and JavaScript:
+
+| File | What it does |
+| --- | --- |
+| `extension/manifest.json` | Extension manifest (Manifest V3) |
+| `extension/popup.html`, `popup.css`, `popup.js` | The popup |
+| `extension/background.js` | Right click menu |
+| `extension/qrcode.js` | QR generator, vendored from [qrcodejs](https://github.com/davidshimjs/qrcodejs) with a small fix for emoji |
+
+## Pull requests
+
+- Keep a PR to one thing.
+- If you change anything under `extension/`, bump `version` in `extension/manifest.json`. A check on the PR fails if you forget. Docs-only changes do not need a bump.
+- Say in the description how you tested it. For changes to the QR code, scanning it with a phone is the test that matters.
+- Avoid new permissions unless the feature really needs one. Kopie installs without a permission warning and should stay that way.
+- No new dependencies or build tooling, please.
+
+PRs are squash-merged, so do not worry about tidying your commits.
+
+## Releases
+
+Maintainers only. Merge the PR that bumps the version, then push a matching tag:
 
 ```
-## Step 1: Fork Repository
-
-## Step 2: Git Set Up & Download
-# Clone the repo
-$ git clone https://github.com/<User-Name>/<Repo-Name>.git
-# Add upstream remote
-$ git remote add upstream https://github.com/Chinmay-KB/project-kopie.git
-# Fetch and merge with upstream/master
-$ git fetch upstream
-$ git merge upstream/master
-
-## Step 2: Create and Publish Working Branch
-$ git checkout -b <type>/<issue|issue-number>/{<additional-fixes>}
-$ git push origin <type>/<issue|issue-number>/{<additional-fixes>}
-
-## Types:
-# wip - Work in Progress; long term work; mainstream changes;
-# feat - New Feature; future planned; non-mainstream changes;
-# bug - Bug Fixes
-# exp - Experimental; random experiemntal features;
+git tag v1.2
+git push origin v1.2
 ```
-### On Task Completion
 
-```
-## Committing and pushing your work
-# Ensure branch
-$ git branch
-# Fetch and merge with upstream/master
-$ git fetch upstream
-$ git merge upstream/master
-# Add untracked files
-$ git add .
-# Commit all changes with appropriate commit message and description
-$ git commit -m "your-commit-message" -m "your-commit-description"
-# Fetch and merge with upstream/master again
-$ git fetch upstream
-$ git merge upstream/master
-# Push changes to your forked repository
-$ git push origin <type>/<issue|issue-number>/{<additional-fixes>}
+The tag has to match the manifest version. Pushing it uploads the package to the Edge Add-ons store, where it goes through Microsoft's review before reaching users. A new submission fails while the previous one is still in review.
 
-## Creating the PR using GitHub Website
-# Create Pull Request from <type>/<issue|issue-number>/{<additional-fixes>} branch in your forked repository to the master branch in the upstream repository
-# After creating PR, add a Reviewer (Any Admin) and yourself as the assignee
-# Link Pull Request to appropriate Issue, or Project+Milestone (if no issue created)
-# IMPORTANT: Do Not Merge the PR unless specifically asked to by an admin.
-```
-### After Pull Request is Merged
-```
-# Delete branch from forked repo
-$ git branch -d <type>/<issue|issue-number>/{<additional-fixes>}
-$ git push --delete origin <type>/<issue|issue-number>/{<additional-fixes>}
-# Fetch and merge with upstream/master
-$ git checkout master
-$ git pull upstream
-$ git push origin
-```
-### Note
-- Always follow [commit message standards](https://chris.beams.io/posts/git-commit/)
-- About the [fork-and-branch workflow](https://blog.scottlowe.org/2015/01/27/using-fork-branch-git-workflow/)
+## Code of conduct
 
-
+Be kind. See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
