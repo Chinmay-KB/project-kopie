@@ -1,0 +1,34 @@
+name: Publish to Edge Add-ons
+
+# Runs when a version tag like v1.0 or v1.2.3 is pushed.
+# The tag has to match "version" in extension/manifest.json.
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check tag matches manifest version
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          manifest=$(jq -r .version extension/manifest.json)
+          if [ "$tag" != "$manifest" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match manifest version $manifest"
+            exit 1
+          fi
+
+      - name: Zip the extension
+        run: cd extension && zip -r ../kopie.zip . -x ".*" -x "*/.*"
+
+      - name: Upload and submit for review
+        uses: wdzeng/edge-addon@v2
+        with:
+          product-id: ${{ secrets.EDGE_PRODUCT_ID }}
+          zip-path: kopie.zip
+          api-key: ${{ secrets.EDGE_API_KEY }}
+          client-id: ${{ secrets.EDGE_CLIENT_ID }}
